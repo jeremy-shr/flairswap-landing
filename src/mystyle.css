@@ -1,0 +1,611 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Inter;
+    color: white;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+:root {
+    --bg-color: linear-gradient(to top, #476A6F, #26383b);
+    --bg-color-main: #222222;
+    --card-width: 300px;
+    --card-height: 350px;
+}
+
+body {
+    background-color: var(--bg-color-main);
+}
+
+section {
+    height: 110vh;
+    width: 100%;
+    position: relative;
+}
+
+.main {
+    padding: 5% 8%;
+    padding-bottom: 5vh;
+}
+
+.second {
+    position: absolute;
+    align-content: center;
+    color: white;
+    padding: 15vh 8%;
+    z-index: 2;
+    pointer-events: none;
+    min-height: 30%;
+
+}
+
+.second h1,
+.second h2 {
+    background: rgba(71, 106, 111, 0.3);
+}
+
+h1 {
+    width: 100%;
+    font-size: 4em;
+    font-weight: 400;
+    padding-top: 0px;
+    padding-bottom: 6px;
+}
+
+h1 span {
+    color: #CCD5C3;
+    font-size: inherit;
+}
+
+h2 {
+    font-size: 2.2em;
+    font-weight: 300;
+    padding-bottom: 6px;
+}
+
+h2 span {
+    color: #CCD5C3;
+    font-size: inherit;
+}
+
+#home button,
+#product button {
+    background: transparent;
+    border: 2px solid white;
+    outline: none;
+    padding: 12px 25px;
+    margin-top: 2vh;
+    color: white;
+    z-index: 2;
+    color: white;
+    pointer-events: all;
+    transition: 0.2s;
+}
+
+#home button:hover,
+#product button:hover {
+    background-color: #476A6F;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#product button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#product button {
+    z-index: 4;
+    position: relative;
+    margin: 0;
+    top: 10px;
+}
+
+.card {
+    opacity: 0;
+    height: var(--card-height);
+    width: var(--card-width);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+
+#cards {
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 95%;
+    width: calc(100%-10px);
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#cards:hover>.card::after {
+    opacity: 1;
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card::before,
+.card::after {
+    border-radius: inherit;
+    content: "";
+    height: 100%;
+    left: 0px;
+    opacity: 0;
+    position: absolute;
+    top: 0px;
+    transition: opacity 500ms;
+    width: 100%;
+}
+
+.card::before {
+    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 255, 255, 0.06),
+            transparent 40%);
+    z-index: 3;
+}
+
+.card::after {
+    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 255, 255, 0.4),
+            transparent 40%);
+    z-index: 1;
+}
+
+.card>.card-content {
+    background-color: rgb(35, 35, 35);
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    inset: 1px;
+    padding: 10px;
+    position: absolute;
+    z-index: 2;
+}
+
+
+#particles-js {
+    left: 0;
+    top: 0;
+    height: 105vh;
+    width: 100%;
+    background: var(--bg-color);
+    position: absolute;
+    z-index: 1;
+}
+
+#home .material-symbols-outlined {
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    scale: 120%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    background-color: #26383b;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.spacer {
+    aspect-ratio: 960/250;
+    width: 100%;
+    overflow-x: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url('assets/mountains.svg');
+    bottom: 0;
+    position: absolute;
+    pointer-events: none;
+    z-index: 4;
+}
+
+p {
+    padding-top: 15px;
+    white-space: pre-line;
+}
+
+#cards p {
+    top: 55%;
+    margin: 8px;
+    position: absolute;
+    max-width: 85%;
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+
+
+h3 {
+    /* padding-right: 15px; */
+    top: 50%;
+    text-align: center;
+    position: relative;
+    color: rgb(240, 240, 240);
+    font-size: 1.1em;
+}
+
+.card-img {
+    opacity: 0.5;
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 100px;
+    top: 5%;
+    object-fit: contain;
+}
+
+#product em {
+    font-size: 2em;
+    color: rgb(240, 240, 240);
+    position: relative;
+    display: block;
+    margin: 5% auto;
+    margin-top: 5%;
+    text-align: center;
+}
+
+#product {
+    min-height: 650px;
+    height: 100vh;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 4;
+}
+
+#vision {
+    background-color: #476A6F;
+    height: fit-content;
+    z-index: 3;
+}
+
+#vision h2 {
+    margin-top: 15%;
+}
+
+#vision p {
+    line-height: 2em;
+    padding-bottom: 7%;
+    max-width: 80%;
+}
+
+p span {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+p em {
+    color: rgba(255, 255, 255, 0.4)
+}
+
+#vision .spacer {
+    margin: -1px;
+}
+
+.vision-container {
+    margin-left: 5%;
+    padding: 0 0;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 10%;
+    width: 90%;
+    gap: 5px;
+}
+
+/* Input */
+.form-title {
+    padding-bottom: 15px;
+    display: block;
+    font-size: 28px;
+    color: #333333;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.label-input {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333333;
+    line-height: 1.5;
+    padding-left: 7px;
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+textarea {
+    outline: none;
+    border: none;
+}
+
+textarea:focus,
+input:focus {
+    border-color: transparent !important;
+}
+
+
+
+/*---------------------------------------------*/
+.focus-input100 {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.focus-input100::before {
+
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #7f7f7f;
+    transition: all 0.4s;
+}
+
+.focus-input100::after {
+    content: attr(data-symbol);
+    font-family: Material-Design-Iconic-Font;
+    color: #adadad;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: calc(100% - 20px);
+    bottom: 0;
+    left: 0;
+    padding-left: 13px;
+    padding-top: 3px;
+}
+
+
+.input100:focus+.focus-input100::before {
+    width: 100%;
+}
+
+.has-val.input100+.focus-input100::before {
+    width: 100%;
+}
+
+.input100:focus+.focus-input100::after {
+    color: #476A6F;
+}
+
+.has-val.input100+.focus-input100::after {
+    color: #476A6F;
+}
+
+
+.wrap-input100 {
+    margin-bottom: 2em;
+    width: 100%;
+    position: relative;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.input100 {
+    font-weight: bolder;
+    font-size: 16px;
+    color: #333333;
+    line-height: 1.2;
+
+    display: block;
+    width: 100%;
+    height: 55px;
+    background: transparent;
+    padding: 0 7px 0 43px;
+}
+
+/* Button */
+
+.container-login100-form-btn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 5%;
+}
+
+.wrap-login100-form-btn {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+
+}
+
+.login100-form-bgbtn {
+    position: absolute;
+    z-index: -1;
+    width: 300%;
+    height: 100%;
+    background: #476A6F;
+    background: linear-gradient(right, #476A6F, #26383b, #476A6F, #26383b);
+    background: -o-linear-gradient(right, #476A6F, #26383b, #476A6F, #26383b);
+    background: -webkit-linear-gradient(right, #476A6F, #26383b, #476A6F, #26383b);
+    background: -moz-linear-gradient(right, #476A6F, #26383b, #476A6F, #26383b);
+    top: 0;
+    left: -100%;
+    transition: all 0.4s;
+}
+
+.login100-form-btn {
+    background-color: transparent;
+    outline: none !important;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 50px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+iframe {
+    border: none !important;
+}
+
+
+.wrap-login100 {
+    max-width: 80%;
+    padding: 2rem 2rem;
+    margin-bottom: 5%;
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.wrap-login100-form-btn:hover .login100-form-bgbtn {
+    left: 0;
+}
+
+@keyframes fadeInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+
+@media (prefers-reduced-motion: no-preference) {
+    .p-animation {
+        animation-name: fadeInRight;
+        animation-duration: 1.2s;
+    }
+
+    .card-animation {
+        opacity: 1;
+        animation-name: fadeInBottom;
+        animation-duration: 1.5s;
+    }
+}
+
+@media screen and (max-width: 1128) {
+    #vision {
+        min-height: 1200px;
+    }
+}
+
+
+@media screen and (max-width: 990px) {
+    #product {
+        height: 180vh;
+    }
+}
+
+@media screen and (max-width: 701px) {
+
+    #product {
+        height: 165vh;
+    }
+}
+
+@media screen and (max-width: 653px) {
+
+
+    :root {
+        --card-height: 225px;
+        --card-width: 225px;
+    }
+
+    * {
+        font-size: 12px;
+    }
+
+    .wrap-login100 {
+        padding: 2rem 2rem;
+    }
+
+    .card-img {
+        top: 3px;
+
+        transform: translateX(-50%) scale(0.75);
+    }
+
+    #product {
+        height: 80vh;
+        min-height: 750px;
+    }
+
+    #particles-js {
+        height: 108vh;
+    }
+}
+
+@media screen and (max-width: 494px) {
+    #product {
+        height: 1100px;
+    }
+}

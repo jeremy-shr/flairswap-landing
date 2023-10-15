@@ -1,0 +1,185 @@
+<?php
+session_start();
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Check if the name and email fields are empty
+    $name = $_POST['name'];
+    $email = $_POST['pass'];
+
+    // Simple rate limiting
+    if (isset($_SESSION['last_submit']) && (time() - $_SESSION['last_submit']) < 10) {
+        echo "Please wait a bit before submitting again.";
+        exit();
+    } else {
+        $_SESSION['last_submit'] = time();
+    }
+
+    // Load the JSON file
+    $filePath = '../registrations.json';
+    $fileContents = file_get_contents($filePath);
+    $data = json_decode($fileContents, true);
+
+    // Determine the new user ID
+    $userId = end($data['registrations'])['userId'] + 1;
+
+    // Create the new registration
+    $newRegistration = [
+        "userId" => $userId,
+        "name" => $name,
+        "email" => $email
+    ];
+
+    // Add the new registration to the array
+    $data['registrations'][] = $newRegistration;
+
+    // Write the updated data back to the JSON file
+    file_put_contents($filePath, json_encode($data));
+
+    echo "Registration successful!";
+}
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Flairswap</title>
+    <meta name="viewport" http-equiv="Content-Type" content="width=device-width, text/html; charset=utf-8">
+    <link rel=stylesheet type="text/css" href="mystyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/icon.png">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js
+    "></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+</head>
+
+<body>
+    <section id="home">
+        <span class="material-symbols-outlined" onclick="openNav()">
+            menu
+        </span>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="material-symbols-outlined" onclick="closeNav()">close</a>
+            <a href="#home">Home</a>
+            <a href="#product">Product</a>
+            <a href="#vision">Vision</a>
+        </div>
+        <div class="second">
+            <h2>Flair<span>swap</span></h2>
+            <h1>Everyone has <span>skills.</span></h1>
+            <h1>Put yours in the <span>mix.</span></h1>
+            <a href="#product"><button type="button">Learn More</button></a>
+        </div>
+
+        <div id="particles-js"></div>
+        <div class="spacer"></div>
+    </section>
+
+
+    <section id="product">
+        <div class="main">
+            <em>Flairswap is redefining what it means to learn new skills online.</em>
+        </div>
+        <div id="cards">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-img">
+                        <img src="assets/knowledge-transfer.png">
+                    </div>
+                    <h3>Knowledge swapping</h3>
+                    <p>Everyone has a skill. Teach yours and learn another.
+
+                        When a connection is made, both are student AND teacher.
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-img">
+                        <img src="assets/access.png">
+                    </div>
+                    <h3>Ease of access</h3>
+                    <p>We provide streamlined 1 on 1 interactions. No more paywalls and boring courses.
+
+                        We want learning to be easy.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-img">
+                        <img src="assets/communication.png">
+                    </div>
+                    <h3>Active learning</h3>
+                    <p>Studies show learning through conversation and debate is most effective.
+
+                        Flairswap offers this experience to all.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <a href="#vision"><button type="button">Get Involved</button></a>
+
+    </section>
+
+    <section id="vision">
+        <div class="spacer" style="background-image: url('assets/waves.svg'); top:0"></div>
+        <div class="main">
+            <h2>Our <span>Vision</span></h2>
+        </div>
+        <div class="vision-container">
+            <p><span>Learning online is hard.</span>
+                It's often expensive, boring and ineffective.
+                But varied skill sets are increasingly sought after by employers.
+                We want to provide a platform for people to exchange skills and learn from eachother.
+
+                <span>Register your interest </span>
+                and get notified for early-access and other perks.
+
+                <em> Disclaimer: We won't use your data for any marketable ends, just to keep you in the loop.
+                    And don't worry, we don't spam.
+                </em>
+            </p>
+            <div class="wrap-login100">
+                <form class="login100-form" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+                    <span class="form-title">
+                        Interested?
+                    </span>
+
+                    <div class="wrap-input100">
+                        <span class="label-input">Name</span>
+                        <input class="input100" type="text" name="name" placeholder="Enter your name">
+                        <span class="focus-input100" data-symbol="&#xf206;"></span>
+                    </div>
+
+                    <div class="wrap-input100" data-validate="Password is required">
+                        <span class="label-input">Email</span>
+                        <input class="input100" type="email" name="pass" placeholder="Enter your email" required>
+                        <span class="focus-input100" data-symbol="&#xf15a;"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn">
+                                Register
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
